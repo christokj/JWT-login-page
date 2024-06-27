@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
     credentials: true,
-    origin: 'https://jwt-login-page.vercel.app'
+    origin: 'http://localhost:5173'
 }));
 app.use(express.json());
 app.use(logger('dev'));
