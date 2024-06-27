@@ -7,7 +7,10 @@ require('./db/index.js');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: 'https://jwt-login-page.vercel.app'
+}));
 app.use(express.json());
 app.use(logger('dev'));
 app.use('/', routes);
