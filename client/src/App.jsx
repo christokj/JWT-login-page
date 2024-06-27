@@ -6,7 +6,7 @@ import axios from 'axios';
   
 function App() {
 
-  axios.defaults.baseURL = 'http://localhost:3000/api';
+  axios.defaults.baseURL = 'http://localhost:3000';
     axios.defaults.withCredentials = true;
 
   return (

@@ -8,8 +8,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    credentials: true,
-    origin: 'https://jwt-login-page.vercel.app'
+    origin: ['https://jwt-login-page.vercel.app']
 }));
 app.use(express.json());
 app.use(logger('dev'));
