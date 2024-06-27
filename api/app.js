@@ -7,10 +7,7 @@ require('./db/index.js');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:5173',
-}));
+app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
 app.use('/', routes);
