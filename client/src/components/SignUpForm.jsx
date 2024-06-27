@@ -8,31 +8,35 @@ import axios from 'axios';
 
 function SignUpForm() {
 
-    // axios.defaults.withCredentials = true;
-
     const { setToggle } = useLoginStore()
 
     const { control, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
         const email = data.email;
         const password = data.password;
         try {
-            if(data.password !== data.Confirmpassword) {
+            if (data.password !== data.Confirmpassword) {
                 toast("Password mismatching");
             } else {
-            const userData = {email, password}
-            const response = await axios.post('/users/sign-up', userData);
-            console.log(response.data);
-            toast("Success");
-            setToggle();
-        }
+                const userData = { email, password }
+                axios.post('/users/sign-up', userData)
+                    .then(data => {
+                        toast("Success");
+                        setToggle();
+                    })
+                    .catch(error => {
+                        console.error('Errors:', error);
+                        toast("User already registered");
+                    });
+
+            }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.error) {
                 toast(error.response.data.error);
-              } else {
+            } else {
                 toast('An unexpected error occurred');
-              }
+            }
         }
     }
 

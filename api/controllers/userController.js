@@ -9,23 +9,28 @@ const jwtSecret = 'fdsofjofdsafass';
 const SignUp = async (req, res) => {
     const data = req.body
     await SignUpJoi.validateAsync(data);
-    const email = data.email
-    const password = data.password
-    const userDoc = await UserModel.create({
-        email,
-        password: bcrypt.hashSync(password, bcryptSalt),
-    });
-
-    await userDoc.save();
-    res.status(200).send("User added successfully");
+    let email = data.email;
+    let password = data.password;
+    const checkEmail = await UserModel.findOne({ email });
+    if (checkEmail != null) {
+        res.status(409).send("Email already registered");
+        console.log("Email already registered");
+    } else {
+        const userDoc = await UserModel.create({
+            email,
+            password: bcrypt.hashSync(password, bcryptSalt),
+        });
+        await userDoc.save();
+        res.status(200).send("User added successfully");
+    }
 }
 
 
 const Login = async (req, res) => {
     const data = req.body
     await SignUpJoi.validateAsync(data);
-    const email = data.email
-    const password = data.password
+    let email = data.email
+    let password = data.password
 
     const userDoc = await UserModel.findOne({ email });
     if (userDoc) {
